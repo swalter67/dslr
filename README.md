@@ -69,7 +69,7 @@ This __F-statistic__ follows the F-distribution with degrees of freedom $\displa
 
 #### Python Implementation
 
-ANOVA may be performed in Python using the [f_oneway function](https://dzone.com/articles/correlation-between-categorical-and-continuous-var-1) from the stats module in SciPy.
+[The one-way ANOVA](https://dzone.com/articles/correlation-between-categorical-and-continuous-var-1) tests the null hypothesis that two or more groups have the same population mean. It may be performed in Python using the [f_oneway function](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.f_oneway.html) from the stats module in SciPy.
 
 However, we will compute it by ourselves. Here is how we perform the calculation of MSB:
 
@@ -129,6 +129,12 @@ for col in df_cleaned.columns[1:]:
     print("Total SSW:", ssw_total)
     print("MSW:", msw)
 ```
+### [__*p*-value__](https://en.wikipedia.org/wiki/P-value#Definition_and_interpretation)
+
+> In a significance test, the null hypothesis $\displaystyle H_{0}$ is rejected if the p-value is less than or equal to a predefined threshold value $\displaystyle \alpha$, which is referred to as the alpha level or significance level. $\displaystyle \alpha$ is not derived from the data, but rather is set by the researcher before examining the data. $\displaystyle \alpha$ is commonly set to 0.05, though lower alpha levels are sometimes used.
+
+
+
 
 
 
