@@ -69,7 +69,7 @@ This __F-statistic__ follows the F-distribution with degrees of freedom $\displa
 
 #### Python Implementation
 
-[The one-way ANOVA](https://dzone.com/articles/correlation-between-categorical-and-continuous-var-1) tests the null hypothesis that two or more groups have the same population mean. It may be performed in Python using the [f_oneway function](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.f_oneway.html) from the stats module in SciPy.
+[The one-way ANOVA](https://dzone.com/articles/correlation-between-categorical-and-continuous-var-1) tests the null hypothesis that two or more groups have the same population mean. It may be performed in Python using the [f_oneway function](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.f_oneway.html) from the [stats module](https://docs.scipy.org/doc/scipy/reference/stats.html) of SciPy.
 
 However, we will compute it by ourselves. Here is how we perform the calculation of MSB:
 
@@ -133,6 +133,11 @@ for col in df_cleaned.columns[1:]:
 
 > In a significance test, the null hypothesis $\displaystyle H_{0}$ is rejected if the p-value is less than or equal to a predefined threshold value $\displaystyle \alpha$, which is referred to as the alpha level or significance level. $\displaystyle \alpha$ is not derived from the data, but rather is set by the researcher before examining the data. $\displaystyle \alpha$ is commonly set to 0.05, though lower alpha levels are sometimes used.
 
+To calculate __*p*-value__ we need to calculate the __cumulative distribution function__.
+
+> The __cumulative distribution function__ (__CDF__) of a real-valued random variable $\displaystyle X$, or just distribution function of $\displaystyle X$, evaluated at $\displaystyle x$, is the probability that $\displaystyle X$ will take a value less than or equal to $\displaystyle x$.
+
+To do that we will use the `scipy.stats.f` class, representing the __F-distribution__, and providing methods to work with the F-distribution. We will use in particular its method [`cdf`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.f.html).
 
 
 
