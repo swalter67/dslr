@@ -40,3 +40,6 @@ fig.update_traces(overwrite=True, histnorm='probability density', autobinx=True)
 
 # Show the plot
 fig.show()
+
+
+# Which Hogwarts course has a homogeneous score distribution between the four houses ?
