@@ -50,3 +50,33 @@ Ces statistiques détaillées pour chaque cours à Poudlard vous fournissent une
 
 ### Conclusion
 Pour votre modèle de régression logistique, les caractéristiques avec une variabilité significative et des distributions distinctes par maison (comme Astronomy, Defense Against the Dark Arts, Muggle Studies, History of Magic, et peut-être Flying) sont à privilégier. Les autres, en particulier ceux avec des dispersions homogènes (Arithmancy, Herbology, et Care of Magical Creatures), pourraient être moins utiles et même introduire du bruit dans votre modèle.
+
+
+  df = df.dropna(subset=['Defense Against the Dark Arts'])
+  df = df.dropna(subset=['Charms'])
+  df = df.dropna(subset=['Herbology'])
+  df = df.dropna(subset=['Divination'])
+  df = df.dropna(subset=['Muggle Studies'])
+
+ ok  excluded_features = ["Arithmancy", "Defense Against the Dark Arts", "Care of Magical Creatures"]
+
+
+  features = ['Herbology',
+       'Defense Against the Dark Arts', 'Divination', 'Muggle Studies',
+       'Ancient Runes', 'History of Magic', 'Transfiguration',
+       'Charms', 'Flying']
+
+target = 'Hogwarts House'
+
+y_labels=["Ravenclaw", "Slytherin", "Gryffindor", "Hufflepuff"]
+
+prediction_vars = np.array(dataset[["Herbology", "Divination", "Ancient Runes", "Charms", "Defense Against the Dark Arts"]])
+
+
+
+ok Two features['Arithmancy', 'Care of Magical Creatures'] cannot classify well, and "Defense Against the Dark Arts" is anti-correlated with "Astronomy".
+
+These features will be dropped before model training.
+
+
+https://github.com/shameleon/dslr-42/blob/68b67104ccd79aeff47c2d28bef58aafdfea986c/docs/logistic_regression.md
