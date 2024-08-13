@@ -19,9 +19,7 @@ To compute the correlation between each house (categorical variable) and the sco
 
 To perform ANOVA for each discipline we apply the following formula:
 
-$
-\frac{Between-Group\;Variance}{Within-Group\;Variance}
-$
+$\displaystyle F = \frac{Between-Group\;Variance}{Within-Group\;Variance}$
 
 Between-Group Variance, or Mean Square Between (MSB), measures how much the group means (house means) deviate from the overall mean. This shows the variation due to the house effect.
 
@@ -129,17 +127,24 @@ for col in df_cleaned.columns[1:]:
     print("Total SSW:", ssw_total)
     print("MSW:", msw)
 ```
-### [__*p*-value__](https://en.wikipedia.org/wiki/P-value#Definition_and_interpretation)
+### __*p*-value__
 
-> In a significance test, the null hypothesis $\displaystyle H_{0}$ is rejected if the p-value is less than or equal to a predefined threshold value $\displaystyle \alpha$, which is referred to as the alpha level or significance level. $\displaystyle \alpha$ is not derived from the data, but rather is set by the researcher before examining the data. $\displaystyle \alpha$ is commonly set to 0.05, though lower alpha levels are sometimes used.
+A [__*p*-value__](https://en.wikipedia.org/wiki/P-value#Definition_and_interpretation) is used to verify the [__null hypothesis__](https://en.wikipedia.org/wiki/Null_hypothesis) $\displaystyle H_{0}$, the claim that the effect being studied does not exist.
+The __null hypothesis__ is rejected if the __*p*-value__ is less than or equal to a predefined threshold value called $\displaystyle \alpha$, which is referred to as the significance level. $\displaystyle \alpha$ is not derived from the data, but rather is set by the researcher before examining the data. It is commonly set to 0.05.
 
 To calculate __*p*-value__ we need to calculate the __cumulative distribution function__.
 
-> The __cumulative distribution function__ (__CDF__) of a real-valued random variable $\displaystyle X$, or just distribution function of $\displaystyle X$, evaluated at $\displaystyle x$, is the probability that $\displaystyle X$ will take a value less than or equal to $\displaystyle x$.
+#### The __Cumulative Distribution Function__
+
+The __cumulative distribution function__ (__CDF__) of a real-valued random variable $\displaystyle X$, or just distribution function of $\displaystyle X$, evaluated at $\displaystyle x$, is the probability that $\displaystyle X$ will take a value less than or equal to $\displaystyle x$.
 
 To do that we will use the `scipy.stats.f` class, representing the __F-distribution__, and providing methods to work with the F-distribution. We will use in particular its method [`cdf`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.f.html).
 
+#### __Pearson's Chi-Squared Test__
 
+To test the distribution of observations in the case of two or more categorical variables, as, for example, between our "Hogwarts House" and "Best Hand" columns, we can use a [__chi-squared test__](https://en.wikipedia.org/wiki/Chi-squared_test) such as [__Pearson's chi-squared test__](https://en.wikipedia.org/wiki/Pearson%27s_chi-squared_test), also called __Pearson's $\displaystyle \chi ^{2}$ test__, a __*p*-value__ test applied to sets of categorical data to evaluate how likely it is that any observed difference between the sets arose by chance.
+
+To perform it I used the function [chisquare](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.chisquare.html) of the SciPy module `stats`.
 
 
 
