@@ -2,7 +2,7 @@ import pandas as pd
 import plotly.express as px
 
 # Load the data
-df = pd.read_csv('dataset_train.csv')
+df = pd.read_csv('../datasets/dataset_train.csv')
 
 # List of courses, assumed to be the features of interest
 courses = ['Arithmancy', 'Astronomy', 'Herbology', 'Defense Against the Dark Arts', 

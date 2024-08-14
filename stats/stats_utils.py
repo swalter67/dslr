@@ -4,7 +4,7 @@ from describe import custom_mean
 
 
 def anova():
-    file_path = 'dataset_train.csv'
+    file_path = '../datasets/dataset_train.csv'
     df = pd.read_csv(file_path)
 
     # Supprimer les colonnes non nécessaires
@@ -65,7 +65,7 @@ def anova():
 
 def chi_square():
     # Example DataFrame
-    file_path = 'dataset_train.csv'
+    file_path = '../datasets/dataset_train.csv'
     df = pd.read_csv(file_path)
 
     # Supprimer les colonnes non nécessaires
@@ -79,9 +79,6 @@ def chi_square():
 
     print("Chi-Square Statistic:", chi2)
     print("p-Value:", p_value)
-    print("Degrees of Freedom:", dof)
-    print("Expected Frequencies Table:")
-    print(expected)
 
 
 def main():

@@ -12,7 +12,7 @@ from sklearn.model_selection import cross_val_score
 houses = {0: 'Gryffindor', 1: 'Hufflepuff', 2: 'Ravenclaw', 3: 'Slytherin'}
 
 # Charger les données
-filepath = "dataset_train.csv"
+filepath = "../datasets/dataset_train.csv"
 df = pd.read_csv(filepath)
 
 # Sélectionner uniquement les colonnes spécifiques

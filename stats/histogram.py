@@ -4,7 +4,7 @@ from plotly.subplots import make_subplots
 import plotly.graph_objects as go
 
 # Load the data
-df = pd.read_csv('dataset_train.csv')
+df = pd.read_csv('../datasets/dataset_train.csv')
 
 # List of courses
 courses = ['Arithmancy', 'Astronomy', 'Herbology', 'Defense Against the Dark Arts', 

@@ -52,7 +52,7 @@ def custom_std(values, ddof=0):
 
 def main():
     # Charger le dataset
-    file_path = 'dataset_test.csv'  # Mettez ici le chemin correct vers votre fichier
+    file_path = '../datasets/dataset_test.csv'  # Mettez ici le chemin correct vers votre fichier
     df = pd.read_csv(file_path)
 
     # Supprimer les colonnes non nécessaires
@@ -63,7 +63,7 @@ def main():
     # Calcul des statistiques personnalisées
     custom_stats = {}
     for col in df_cleaned.columns:
-        values = df_cleaned[col].dropna().tolist()  # Convertir en liste pour le traitement
+        values = df_cleaned[col].dropna()  # Convertir en liste pour le traitement
         custom_stats[col] = {
             'count': len(values),
             'min': custom_min(values),
