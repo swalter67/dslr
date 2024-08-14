@@ -1,6 +1,11 @@
-import pandas as pd
-from scipy.stats import f, chi2_contingency
-from describe import custom_mean
+try:
+    import pandas as pd
+    from scipy.stats import f, chi2_contingency
+    from describe import custom_mean
+except ImportError:
+    print("Some libraries are missing. You can install them by typing:")
+    print("pip install <library>")
+    exit(1)
 
 
 def anova():
@@ -82,8 +87,13 @@ def chi_square():
 
 
 def main():
-    anova()
-    chi_square()
+
+    try:
+        anova()
+        chi_square()
+
+    except Exception as e:
+        print(f'An error has occurred: { e }')
 
 
 if __name__ == "__main__":

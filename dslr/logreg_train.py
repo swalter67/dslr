@@ -1,11 +1,16 @@
-import sys
-import os
-import pandas as pd
-import numpy as np
+try:
+    import sys
+    import os
+    import pandas as pd
+    import numpy as np
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+    sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-import stats.describe as ds
+    import stats.describe as ds
+except ImportError:
+    print("Some libraries are missing. You can install them by typing:")
+    print("pip install <library>")
+    exit(1)
 
 
 def standardize(p_data):
@@ -72,25 +77,30 @@ def fit(X, y):
 
 
 def main():
-    file_path = '../datasets/dataset_train.csv'
-    df = pd.read_csv(file_path)
-    t_data = df["Hogwarts House"]
-    # p_data = df[["Herbology", "Divination", "Ancient Runes", "Charms", "Defense Against the Dark Arts"]]
-    p_data = df[["Astronomy","Herbology","Divination","Muggle Studies","Ancient Runes","History of Magic","Transfiguration","Potions","Charms","Flying"]]
-    # Standardization
-    p_data = standardize(p_data)
 
-    # Train the model
-    trained_weights = fit(p_data.to_numpy(), t_data.to_numpy())
+    try:
+        file_path = '../datasets/dataset_train.csv'
+        df = pd.read_csv(file_path)
+        t_data = df["Hogwarts House"]
+        # p_data = df[["Herbology", "Divination", "Ancient Runes", "Charms", "Defense Against the Dark Arts"]]
+        p_data = df[["Astronomy","Herbology","Divination","Muggle Studies","Ancient Runes","History of Magic","Transfiguration","Potions","Charms","Flying"]]
+        # Standardization
+        p_data = standardize(p_data)
 
-    # Save the trained weights
-    np.save("pred.npy", np.array(trained_weights, dtype='object'))
+        # Train the model
+        trained_weights = fit(p_data.to_numpy(), t_data.to_numpy())
 
-    # Charger le fichier .npy
-    trained_weights = np.load("pred.npy", allow_pickle=True)
+        # Save the trained weights
+        np.save("pred.npy", np.array(trained_weights, dtype='object'))
 
-    #    Afficher le contenu du fichier
-    print(trained_weights)
+        # Charger le fichier .npy
+        trained_weights = np.load("pred.npy", allow_pickle=True)
+
+        #    Afficher le contenu du fichier
+        print(trained_weights)
+
+    except Exception as e:
+        print(f'An error has occurred: { e }')
 
 
 if __name__ == "__main__":

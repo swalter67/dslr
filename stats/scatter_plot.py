@@ -1,6 +1,11 @@
-import pandas as pd
-import plotly.graph_objects as go
-from plotly.subplots import make_subplots
+try:
+    import pandas as pd
+    import plotly.graph_objects as go
+    from plotly.subplots import make_subplots
+except ImportError:
+    print("Some libraries are missing. You can install them by typing:")
+    print("pip install <library>")
+    exit(1)
 
 # Load the data
 df = pd.read_csv('../datasets/dataset_train.csv')
