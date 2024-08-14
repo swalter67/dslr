@@ -2,9 +2,9 @@ import pandas as pd
 import math
 
 
-def custom_mean(values):
+def custom_mean(values: pd.DataFrame):
     """Calcule la moyenne des valeurs."""
-    valid_values = [v for v in values if pd.notna(v)]
+    valid_values = values.dropna().tolist()
     if not valid_values:
         return None
     return sum(valid_values) / len(valid_values)
