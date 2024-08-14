@@ -29,8 +29,8 @@ def main():
     weights = np.load("pred.npy", allow_pickle=True)
     
     # Utiliser uniquement les colonnes pertinentes pour la prédiction
-    pred = valid_df[["Astronomy","Herbology","Divination","Muggle Studies","Ancient Runes","History of Magic","Transfiguration","Potions","Charms","Flying"]]
-                     
+    # ok final pred = valid_df[["Astronomy","Herbology","Divination","Muggle Studies","Ancient Runes","History of Magic","Transfiguration","Potions","Charms","Flying"]]
+    pred = valid_df[["Astronomy","Herbology","Divination","Muggle Studies","Ancient Runes","History of Magic","Transfiguration","Potions","Charms","Flying", "Defense Against the Dark Arts", "Arithmancy", "Care of Magical Creatures"]]                 
     #pred = valid_df[["Herbology", "Divination", "Ancient Runes", "Charms", "Defense Against the Dark Arts"]]
     # Remplacer les NaN par la moyenne de chaque colonne
     for column in pred.columns:

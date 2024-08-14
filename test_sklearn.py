@@ -2,7 +2,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split 
 from sklearn.tree import DecisionTreeClassifier 
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import precision_score, f1_score, accuracy_score, confusion_matrix
+from sklearn.metrics import precision_score, f1_score, accuracy_score
 from sklearn.impute import SimpleImputer
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -16,9 +16,7 @@ filepath = "dataset_train.csv"
 df = pd.read_csv(filepath)
 
 # Sélectionner uniquement les colonnes spécifiques
-_data = df[["Astronomy", "Herbology", "Divination", "Muggle Studies", 
-            "Ancient Runes", "History of Magic", "Transfiguration", 
-            "Potions", "Charms", "Flying"]]
+_data = df[[ "Astronomy","Herbology","Divination","Muggle Studies","Ancient Runes","History of Magic","Transfiguration","Potions","Charms","Flying"]]
 
 # Extraire les labels
 y = df['Hogwarts House']
