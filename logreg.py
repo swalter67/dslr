@@ -42,7 +42,7 @@ def update_weight_loss(weight, learning_rate, gradient):
 def fit(X, y):
     weights = []
     max_iterations = 10000
-    learning_rate = 0.01
+    learning_rate = 0.001
     X = np.insert(X, 0, 1, axis=1)
 
     assert not np.isnan(X).any(), "X contains NaN values"
@@ -56,8 +56,7 @@ def fit(X, y):
             linear_combination = np.dot(X, r)
             predictions = sigmoid(linear_combination)
             errors = current_y - predictions
-            gradient = gradient_descent(X, predictions, current_y)
-            
+            gradient = np.dot(X.T, errors)
             assert not np.isnan(gradient).any(), "Gradient contains NaN values"
             assert not np.isinf(gradient).any(), "Gradient contains infinite values"
             
@@ -71,8 +70,8 @@ def main():
     file_path = 'dataset_train.csv'
     df = pd.read_csv(file_path)
     t_data = df["Hogwarts House"]
-    p_data = df[["Herbology", "Divination", "Ancient Runes", "History of Magic", "Transfiguration" ]]
-    
+    #p_data = df[["Herbology", "Divination", "Ancient Runes", "Charms", "Defense Against the Dark Arts"]]
+    p_data = df[["Astronomy","Herbology","Divination","Muggle Studies","Ancient Runes","History of Magic","Transfiguration","Potions","Charms","Flying"]]
     # Standardization
     p_data = standard(p_data)
     
