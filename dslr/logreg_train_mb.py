@@ -1,47 +1,12 @@
-try:
-    import sys
-    import os
-    import pandas as pd
-    import numpy as np
+import pandas as pd
+import numpy as np
 
-    sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
-    import stats.describe as ds
-except ImportError:
-    print("Some libraries are missing. You can install them by typing:")
-    print("pip install <library>")
-    exit(1)
-
-
-def standardize(p_data):
-    df2 = pd.DataFrame()
-    for col in p_data.columns:
-        print(f"Processing column: {col}")
-
-        # Remplacer les NaN par 0 en utilisant .loc[] pour éviter l'avertissement
-        p_data.loc[:, col] = p_data[col].fillna(0)
-
-        mean = ds.custom_mean(p_data[col])
-        std = ds.custom_std(p_data[col])
-
-        if std == 0:
-            print(f"Standard deviation for column {col} is zero.")
-            df2[col] = p_data[col]
-        else:
-            df2[col] = (p_data[col] - mean) / std
-
-        assert not df2[col].isna().any(), f"NaN values detected after standardizing {col}"
-
-    return df2
+from utils import standardize, calcul_accuracy, predict
 
 
 def sigmoid(arr: np.ndarray) -> np.ndarray:
     arr = np.clip(arr, -500, 500)
     return 1 / (1 + np.exp(-arr))
-
-
-# def gradient_descent(X, h, y):
-#     return np.dot(X.T, (h - y)) / y.shape[0]
 
 
 def update_weight_loss(weight, learning_rate, gradient):
@@ -135,6 +100,13 @@ def main():
 
         #    Afficher le contenu du fichier
         print(trained_weights)
+
+        # Prédire avec les poids entraînés
+        predictions = predict(p_data.to_numpy(), trained_weights)
+
+        # Calculer l'accuracy
+        accuracy = calcul_accuracy(predictions, t_data.to_numpy())
+        print("Accuracy:", accuracy)
 
     except Exception as e:
         print(f'An error has occurred: { e }')

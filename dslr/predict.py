@@ -1,13 +1,7 @@
-try:
-    import pandas as pd
-    import numpy as np
-    from sklearn.model_selection import train_test_split  # Pour diviser les données
+import pandas as pd
+import numpy as np
 
-    from dslr.logreg_train2 import standardize
-except ImportError:
-    print("Some libraries are missing. You can install them by typing:")
-    print("pip install <library>")
-    exit(1)
+from utils import standardize
 
 
 def predict1(g, weights):
@@ -22,46 +16,42 @@ def predict(X, weights):
     return [predict1(i, weights) for i in np.insert(X, 0, 1, axis=1)]
 
 
-def calcul_accuracy(predictions, true_labels):
-    correct = sum(p == t for p, t in zip(predictions, true_labels))
-    return correct / len(true_labels)
-
-
 def main():
+    file_path = '../datasets/dataset_test.csv'
+    df = pd.read_csv(file_path)
 
-    try:
-        file_path = '../datasets/dataset_train.csv'
-        df = pd.read_csv(file_path)
+    # Séparer les données en ensemble d'entraînement et de validation
+    # train_df, valid_df = train_test_split(df, test_size=0.2, random_state=42)
+    valid_df = df
+    print(valid_df)
+    # Charger les poids
+    weights = np.load("pred.npy", allow_pickle=True)
 
-        # Séparer les données en entraînement et validation
-        train_df, valid_df = train_test_split(df, test_size=0.2, random_state=42)
+    # Sélectionner les colonnes pertinentes pour la prédiction
+    pred = valid_df[["Astronomy","Herbology","Divination","Muggle Studies","Ancient Runes","History of Magic","Transfiguration","Potions","Charms","Flying"]]
 
-        weights = np.load("pred.npy", allow_pickle=True)
+    # Remplacer les NaN par la moyenne de chaque colonne
+    for column in pred.columns:
+        pred.loc[:, column] = pred[column].fillna(pred[column].mean())
 
-        # Utiliser uniquement les colonnes pertinentes pour la prédiction
-        pred = valid_df[["Astronomy","Herbology","Divination","Muggle Studies","Ancient Runes","History of Magic","Transfiguration","Potions","Charms","Flying"]]
+    # Convertir en array numpy et standardiser
+    pred = standardize(pred)  # Utiliser la même fonction standard utilisée lors de l'entraînement
 
-        # pred = valid_df[["Herbology", "Divination", "Ancient Runes", "Charms", "Defense Against the Dark Arts"]]
-        # Remplacer les NaN par la moyenne de chaque colonne
-        for column in pred.columns:
-            pred.loc[:, column] = pred[column].fillna(pred[column].mean())
+    # Prédictions
+    predictions = predict(pred.to_numpy(), weights)
 
-        # Convertir en array numpy et standardiser
-        pred = np.array(pred)
-        pred = standardize(pd.DataFrame(pred))  # Convertir en DataFrame pour standard
+    # Obtenir les vraies maisons pour l'ensemble de validation
+    true_house = valid_df["Hogwarts House"]
 
-        # Prédictions
-        predictions = predict(pred, weights)
+    # Créer un DataFrame avec les résultats
+    results = pd.DataFrame({
+        "Index": valid_df.index,
+        "Hogwarts House": predictions
+    })
 
-        # Obtenir les vraies maisons pour l'ensemble de validation
-        true_house = valid_df["Hogwarts House"]
-
-        # Calculer l'accuracy
-        accuracy = calcul_accuracy(predictions, true_house)
-        print("Accuracy:", accuracy)
-
-    except Exception as e:
-        print(f'An error has occurred: { e }')
+    # Enregistrer les résultats dans un fichier CSV
+    results.to_csv("house.csv", index=False)
+    print("Predictions saved to house.csv")
 
 
 if __name__ == "__main__":
