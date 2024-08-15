@@ -149,6 +149,10 @@ To test the distribution of observations in the case of two or more categorical 
 To perform it I used the function [chisquare](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.chisquare.html) of the SciPy module `stats`.
 
 
+### Mini-Batch Gradient Descent Algorithm
 
+https://www.geeksforgeeks.org/ml-mini-batch-gradient-descent-with-python
+
+https://github.com/iamkucuk/Logistic-Regression-With-Mini-Batch-Gradient-Descent/blob/master/logistic_regression_notebook.ipynb
 
 To add mathematical formulas in the present README file I followed the article ["Cheat Sheet: Adding Math Notation to Markdown"](https://www.upyesp.org/posts/makrdown-vscode-math-notation).
