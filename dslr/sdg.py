@@ -1,6 +1,17 @@
-import pandas as pd
-import numpy as np
-import describe as ds  # Assurez-vous que ce module contient custom_mean et custom_std
+try:
+    import sys
+    import os
+    import pandas as pd
+    import numpy as np
+
+    sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+    import stats.describe as ds
+except ImportError:
+    print("Some libraries are missing. You can install them by typing:")
+    print("pip install <library>")
+    exit(1)
+
 
 def standardize(p_data):
     df2 = pd.DataFrame()

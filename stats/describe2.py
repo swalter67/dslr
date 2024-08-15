@@ -1,6 +1,10 @@
-import pandas as pd
-import math
-from collections import Counter
+try:
+    import pandas as pd
+    import math
+except ImportError:
+    print("Some libraries are missing. You can install them by typing:")
+    print("pip install <library>")
+    exit(1)
 
 def custom_mean(values):
     """Calcule la moyenne des valeurs."""

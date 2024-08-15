@@ -1,7 +1,13 @@
-import pandas as pd
-import numpy as np
-from logreg import standard  # Assurez-vous que cette fonction est bien définie dans logreg.py
-from sklearn.model_selection import train_test_split  # Pour diviser les données
+try:
+    import pandas as pd
+    import numpy as np
+    from sklearn.model_selection import train_test_split  # Pour diviser les données
+
+    from dslr.logreg_train import standardize
+except ImportError:
+    print("Some libraries are missing. You can install them by typing:")
+    print("pip install <library>")
+    exit(1)
 
 def predict1(g, weights):
     max_prob = (-10, 0)

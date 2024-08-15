@@ -1,7 +1,7 @@
 try:
     import pandas as pd
     from scipy.stats import f, chi2_contingency
-    from describe import custom_mean
+    from test.describe2 import custom_mean
 except ImportError:
     print("Some libraries are missing. You can install them by typing:")
     print("pip install <library>")

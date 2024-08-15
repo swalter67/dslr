@@ -3,7 +3,7 @@ try:
     import numpy as np
     from sklearn.model_selection import train_test_split  # Pour diviser les données
 
-    from logreg_train import standardize
+    from dslr.logreg_train2 import standardize
 except ImportError:
     print("Some libraries are missing. You can install them by typing:")
     print("pip install <library>")
