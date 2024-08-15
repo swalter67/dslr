@@ -120,38 +120,35 @@ def main():
                         algorithm will be used to train the model.")
     args = parser.parse_args()
 
-    # try:
-    file_path = '../datasets/dataset_train.csv'
-    df = pd.read_csv(file_path)
-    t_data = df["Hogwarts House"]
-    p_data = df[["Astronomy","Herbology","Divination","Muggle Studies","Ancient Runes","History of Magic","Transfiguration","Potions","Charms","Flying"]]
+    try:
+        file_path = '../datasets/dataset_train.csv'
+        df = pd.read_csv(file_path)
+        t_data = df["Hogwarts House"]
+        p_data = df[["Astronomy","Herbology","Divination","Muggle Studies","Ancient Runes","History of Magic","Transfiguration","Potions","Charms","Flying"]]
 
-    # Standardization
-    p_data = standardize(p_data)
+        # Standardization
+        p_data = standardize(p_data)
 
-    # Train the model using SGD
-    trained_weights = fit(p_data.to_numpy(), t_data.to_numpy(), args.method)
+        # Train the model using SGD
+        trained_weights = fit(p_data.to_numpy(), t_data.to_numpy(), args.method)
 
-    # Save the trained weights
-    np.save("pred.npy", np.array(trained_weights, dtype='object'))
+        # Save the trained weights
+        np.save("pred.npy", np.array(trained_weights, dtype='object'))
 
-    # Charger le fichier .npy
-    trained_weights = np.load("pred.npy", allow_pickle=True)
+        # Charger le fichier .npy
+        trained_weights = np.load("pred.npy", allow_pickle=True)
 
-    # Prédire avec les poids entraînés
-    predictions = predict(p_data.to_numpy(), trained_weights)
+        # Prédire avec les poids entraînés
+        predictions = predict(p_data.to_numpy(), trained_weights)
 
-    # Afficher le contenu du fichier
-    print(trained_weights)
+        # Calculer l'accuracy
+        accuracy = calcul_accuracy(predictions, t_data.to_numpy())
+        print("Accuracy:", accuracy)
 
-    # Calculer l'accuracy
-    accuracy = calcul_accuracy(predictions, t_data.to_numpy())
-    print("Accuracy:", accuracy)
-
-    # Afficher le contenu du fichier
-    # print(trained_weights)
-    # except Exception as e:
-    #     print(f'An error has occurred: { e }')
+        # Afficher le contenu du fichier
+        # print(trained_weights)
+    except Exception as e:
+        print(f'An error has occurred: { e }')
 
 
 if __name__ == "__main__":
