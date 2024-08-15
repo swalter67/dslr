@@ -2,6 +2,8 @@
 
 [What's logistic regression?](https://aws.amazon.com/what-is/logistic-regression)
 
+["Gradient Descent for Logistics Regression in Python"](https://medium.com/@IwriteDSblog/gradient-descent-for-logistics-regression-in-python-18e033775082)
+
 A [Youtube playlist on logistic regression](https://www.youtube.com/playlist?list=PLblh5JKOoLUKxzEP5HA2d-Li7IJkHfXSe) by StatQuest with Josh Starmer.
 
 
