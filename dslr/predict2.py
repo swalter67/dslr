@@ -1,13 +1,30 @@
-try:
-    import pandas as pd
-    import numpy as np
-    from sklearn.model_selection import train_test_split  # Pour diviser les données
+import pandas as pd
+import numpy as np
 
-    from dslr.logreg_train import standardize
-except ImportError:
-    print("Some libraries are missing. You can install them by typing:")
-    print("pip install <library>")
-    exit(1)
+from sklearn.model_selection import train_test_split  # Pour diviser les données
+
+
+def standard(p_data):
+    df2 = pd.DataFrame()
+    for col in p_data.columns:
+        print(f"Processing column: {col}")
+        
+        # Remplacer les NaN par 0 en utilisant .loc[] pour éviter l'avertissement
+        p_data.loc[:, col] = p_data[col].fillna(0)
+        
+        mean = p_data[col].mean()
+        std = p_data[col].std()
+        
+        if std == 0:
+            print(f"Standard deviation for column {col} is zero.")
+            df2[col] = p_data[col]
+        else:
+            df2[col] = (p_data[col] - mean) / std
+        
+        assert not df2[col].isna().any(), f"NaN values detected after standardizing {col}"
+    
+    return df2
+
 
 def predict1(g, weights):
     max_prob = (-10, 0)
@@ -19,26 +36,22 @@ def predict1(g, weights):
 def predict(X, weights):
     return [predict1(i, weights) for i in np.insert(X, 0, 1, axis=1)]
 
-def calcul_accuracy(predictions, true_labels):
-    correct = sum(p == t for p, t in zip(predictions, true_labels))
-    return correct / len(true_labels)
+
 
 def main():
-    file_path = 'dataset_train.csv'
+    file_path = '../datasets/dataset_test.csv'
     df = pd.read_csv(file_path)
 
     # Séparer les données en ensemble d'entraînement et de validation
-    train_df, valid_df = train_test_split(df, test_size=0.2, random_state=42)
-
+    #train_df, valid_df = train_test_split(df, test_size=0.2, random_state=42)
+    valid_df = df
+    print(valid_df)
     # Charger les poids
     weights = np.load("pred.npy", allow_pickle=True)
     
     # Sélectionner les colonnes pertinentes pour la prédiction
-    pred = valid_df[["Astronomy", "Herbology", "Divination", "Muggle Studies", 
-                     "Ancient Runes", "History of Magic", "Transfiguration", 
-                     "Potions", "Charms", "Flying", 
-                     "Defense Against the Dark Arts", "Arithmancy", 
-                     "Care of Magical Creatures"]]
+    pred = valid_df[["Astronomy","Herbology","Divination","Muggle Studies","Ancient Runes","History of Magic","Transfiguration","Potions","Charms","Flying"]]
+    
 
     # Remplacer les NaN par la moyenne de chaque colonne
     for column in pred.columns:
@@ -53,9 +66,17 @@ def main():
     # Obtenir les vraies maisons pour l'ensemble de validation
     true_house = valid_df["Hogwarts House"]
 
-    # Calculer l'accuracy
-    accuracy = calcul_accuracy(predictions, true_house)
-    print("Accuracy:", accuracy)
+    
+
+    # Créer un DataFrame avec les résultats
+    results = pd.DataFrame({
+        "Index": valid_df.index,
+        "Hogwarts House": predictions
+    })
+
+    # Enregistrer les résultats dans un fichier CSV
+    results.to_csv("house.csv", index=False)
+    print("Predictions saved to house.csv")
 
 if __name__ == "__main__":
     main()

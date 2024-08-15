@@ -12,6 +12,24 @@ except ImportError:
     print("pip install <library>")
     exit(1)
 
+def calcul_accuracy(predictions, true_labels):
+    correct = sum(p == t for p, t in zip(predictions, true_labels))
+    return correct / len(true_labels)
+
+
+def predict(X, weights):
+    # Ajouter une colonne de 1 pour le biais
+    X = np.insert(X, 0, 1, axis=1)
+    
+    predictions = []
+    for row in X:
+        probs = []
+        for w, house in weights:
+            prob = sigmoid(np.dot(row, w))
+            probs.append((prob, house))
+        predicted_house = max(probs)[1]
+        predictions.append(predicted_house)
+    return predictions
 
 def standardize(p_data):
     df2 = pd.DataFrame()
@@ -88,20 +106,16 @@ def fit(X, y, method="gd"):
     return weights
 
 def main():
-    file_path = 'dataset_train.csv'
+    file_path = '../datasets/dataset_train.csv'
     df = pd.read_csv(file_path)
     t_data = df["Hogwarts House"]
-    p_data = df[["Astronomy", "Herbology", "Divination", "Muggle Studies", 
-                     "Ancient Runes", "History of Magic", "Transfiguration", 
-                     "Potions", "Charms", "Flying", 
-                     "Defense Against the Dark Arts", "Arithmancy", 
-                     "Care of Magical Creatures"]]
+    p_data = df[["Astronomy","Herbology","Divination","Muggle Studies","Ancient Runes","History of Magic","Transfiguration","Potions","Charms","Flying"]]
     
     # Standardization
     p_data = standardize(p_data)
     
     # Train the model using SGD
-    trained_weights = fit(p_data.to_numpy(), t_data.to_numpy(), method="sgd")
+    trained_weights = fit(p_data.to_numpy(), t_data.to_numpy(), method="gd")
 
     # Save the trained weights
     np.save("pred.npy", np.array(trained_weights, dtype='object'))
@@ -109,8 +123,22 @@ def main():
     # Charger le fichier .npy
     trained_weights = np.load("pred.npy", allow_pickle=True)
 
+
+   
+
+    # Prédire avec les poids entraînés
+    predictions = predict(p_data.to_numpy(), trained_weights)
+
+    # Calculer l'accuracy
+    accuracy = calcul_accuracy(predictions, t_data.to_numpy())
+    print("Accuracy:", accuracy)
+
+
+
+
+
     # Afficher le contenu du fichier
-    print(trained_weights)
+    #print(trained_weights)
 
 if __name__ == "__main__":
     main()
