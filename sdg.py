@@ -80,7 +80,11 @@ def main():
     file_path = 'dataset_train.csv'
     df = pd.read_csv(file_path)
     t_data = df["Hogwarts House"]
-    p_data = df[["Defense Against the Dark Arts", "Arithmancy", "Care of Magical Creatures"]]
+    p_data = df[["Astronomy", "Herbology", "Divination", "Muggle Studies", 
+                     "Ancient Runes", "History of Magic", "Transfiguration", 
+                     "Potions", "Charms", "Flying", 
+                     "Defense Against the Dark Arts", "Arithmancy", 
+                     "Care of Magical Creatures"]]
     
     # Standardization
     p_data = standardize(p_data)
