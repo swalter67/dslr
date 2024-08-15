@@ -77,6 +77,17 @@ def fit(X, y):
 
 
 def main():
+    file_path = 'dataset_train.csv'
+    df = pd.read_csv(file_path)
+    t_data = df["Hogwarts House"]
+    #p_data = df[["Herbology", "Divination", "Ancient Runes", "Charms", "Defense Against the Dark Arts"]]
+    # ok final p_data = df[["Astronomy","Herbology","Divination","Muggle Studies","Ancient Runes","History of Magic","Transfiguration","Potions","Charms","Flying"]]
+    p_data = df[["Defense Against the Dark Arts", "Arithmancy", "Care of Magical Creatures"]]
+    # Standardization
+    p_data = standardize(p_data)
+    
+    # Train the model
+    trained_weights = fit(p_data.to_numpy(), t_data.to_numpy())
 
     try:
         file_path = '../datasets/dataset_train.csv'
