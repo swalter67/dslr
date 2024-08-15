@@ -17,7 +17,7 @@ def grad(X, y, r):
     return gradient, predictions
 
 
-def create_mini_batches(X, y, batch_size=32):
+def create_mini_batches(X, y, batch_size):
     mini_batches = []
     y = y.reshape(-1, 1)
     data = np.hstack((X, y))
