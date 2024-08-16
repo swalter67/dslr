@@ -1,10 +1,5 @@
-try:
-    import pandas as pd
-    import plotly.express as px
-except ImportError:
-    print("Some libraries are missing. You can install them by typing:")
-    print("pip install <library>")
-    exit(1)
+import pandas as pd
+import plotly.express as px
 
 
 def main():
@@ -13,9 +8,9 @@ def main():
         df = pd.read_csv('../datasets/dataset_train.csv')
 
         # List of courses, assumed to be the features of interest
-        courses = ['Arithmancy', 'Astronomy', 'Herbology', 'Defense Against the Dark Arts', 
-                'Divination', 'Muggle Studies', 'Ancient Runes', 'History of Magic', 
-                'Transfiguration', 'Potions', 'Care of Magical Creatures', 'Charms', 'Flying']
+        courses = ['Arithmancy', 'Astronomy', 'Herbology', 'Defense Against the Dark Arts',
+                   'Divination', 'Muggle Studies', 'Ancient Runes', 'History of Magic',
+                   'Transfiguration', 'Potions', 'Care of Magical Creatures', 'Charms', 'Flying']
 
         # Filter the DataFrame to include only the relevant courses
         df_filtered = df[courses + ['Hogwarts House']].dropna()  # Including house for coloring
@@ -30,7 +25,6 @@ def main():
 
         # Show the plot
         fig.show()
-
 
         # *Arithmancy*, *Potions* and *Care of Magical Creatures*     repartition homogene
 
