@@ -1,8 +1,12 @@
-import pandas as pd
-import numpy as np
-import argparse
+try:
+    import pandas as pd
+    import numpy as np
+    import argparse
 
-from utils import standardize, calcul_accuracy, predict, sigmoid
+    from utils import standardize, calcul_accuracy, predict, sigmoid
+except ImportError:
+    print("Necessary libraries are not installed. \
+          Please run `pip install -r requirements.txt`")
 
 
 def hypothesis(X, r):

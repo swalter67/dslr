@@ -1,5 +1,9 @@
-import pandas as pd
-import plotly.express as px
+try:
+    import pandas as pd
+    import plotly.express as px
+except ImportError:
+    print("Necessary libraries are not installed. \
+          Please run `pip install -r requirements.txt`")
 
 
 def main():
@@ -27,7 +31,6 @@ def main():
         fig.show()
 
         # *Arithmancy*, *Potions* and *Care of Magical Creatures*     repartition homogene
-
         # *Divination*, *Muggle Studies*, *History of Magic*, *Transfiguration*, *Charms* and *Flying* pour une regression lineaire
 
     except Exception as e:

@@ -1,6 +1,10 @@
-import pandas as pd
-import math
-from collections import Counter
+try:
+    import pandas as pd
+    import math
+    from collections import Counter
+except ImportError:
+    print("Necessary libraries are not installed. \
+          Please run `pip install -r requirements.txt`")
 
 
 def custom_mean(values):
@@ -108,7 +112,7 @@ def main():
             for stat_name, value in stats.items():
                 print(f"{stat_name}: {value}")
     except Exception as e:
-        print(e)
+        print(f'An error has occurred: { e }')
 
 
 if __name__ == "__main__":

@@ -1,6 +1,10 @@
-import pandas as pd
-from plotly.subplots import make_subplots
-import plotly.graph_objects as go
+try:
+    import pandas as pd
+    from plotly.subplots import make_subplots
+    import plotly.graph_objects as go
+except ImportError:
+    print("Necessary libraries are not installed. \
+          Please run `pip install -r requirements.txt`")
 
 
 def main():

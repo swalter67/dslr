@@ -1,6 +1,10 @@
-import pandas as pd
-import plotly.graph_objects as go
-from plotly.subplots import make_subplots
+try:
+    import pandas as pd
+    import plotly.graph_objects as go
+    from plotly.subplots import make_subplots
+except ImportError:
+    print("Necessary libraries are not installed. \
+          Please run `pip install -r requirements.txt`")
 
 
 def main():
@@ -56,15 +60,12 @@ def main():
         # Show the plot
         fig.show()
 
-
         # history of magic et transfiguration meme repartition
-
-
-
         # Arithmancy et  Care of Magical Creatures sont idem sur une repartion homogene des 4 maisons
 
     except Exception as e:
         print(f"An error occurred: {e}")
+
 
 if __name__ == "__main__":
     main()

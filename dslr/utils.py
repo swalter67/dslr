@@ -1,11 +1,15 @@
-import sys
-import os
-import pandas as pd
-import numpy as np
+try:
+    import sys
+    import os
+    import pandas as pd
+    import numpy as np
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+    sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-import stats.describe as ds
+    import stats.describe as ds
+except ImportError:
+    print("Necessary libraries are not installed. \
+          Please run `pip install -r requirements.txt`")
 
 
 def standardize(p_data):
@@ -53,4 +57,3 @@ def predict(X, weights):
         predicted_house = max(probs)[1]
         predictions.append(predicted_house)
     return predictions
-

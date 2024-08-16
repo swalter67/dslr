@@ -1,7 +1,11 @@
-import pandas as pd
-from scipy.stats import f, chi2_contingency
+try:
+    import pandas as pd
+    from scipy.stats import f, chi2_contingency
 
-from describe import custom_mean
+    from describe import custom_mean
+except ImportError:
+    print("Necessary libraries are not installed. \
+          Please run `pip install -r requirements.txt`")
 
 
 def anova():

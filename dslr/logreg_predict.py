@@ -1,7 +1,11 @@
-import pandas as pd
-import numpy as np
+try:
+    import pandas as pd
+    import numpy as np
 
-from utils import standardize
+    from utils import standardize
+except ImportError:
+    print("Necessary libraries are not installed. \
+          Please run `pip install -r requirements.txt`")
 
 
 def predict1(g, weights):
